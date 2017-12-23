@@ -7,6 +7,7 @@ const passport = require('passport');
 const passportConfig = require('./Services/Auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./Schema/Schema');
+const cors = require('cors');
 require('dotenv').config()
 
 const app = express();
@@ -33,7 +34,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/graphql', expressGraphQL({
+app.use('/graphql', cors(), expressGraphQL({
   schema,
   graphiql: true
 }));
