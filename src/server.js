@@ -34,7 +34,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/graphql', cors(), expressGraphQL({
+// enable cors
+const corsOptions = {
+  origin: process.env.CLIENT_DOMAIN,
+  credentials: true // <-- REQUIRED backend setting
+};
+
+app.use('/graphql', cors(corsOptions), expressGraphQL({
   schema,
   graphiql: true
 }));
